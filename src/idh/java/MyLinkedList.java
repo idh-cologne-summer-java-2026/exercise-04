@@ -21,34 +21,86 @@ public class MyLinkedList<T> {
 	ListElement first;
 
 	public int size() {
-		// TODO: Implement
-		return 0;
+		int counter = 0;
+		ListElement aktuell = first;
+		while(aktuell != null) {
+			counter++;
+			aktuell = aktuell.next;
+		}
+		return counter;
 	}
 
 	public boolean contains(Object o) {
-		// TODO: Implement
+		ListElement aktuell = first;
+		while(aktuell != null) {
+			if(aktuell.payload.equals(o)) {
+				return true;
+			}
+			aktuell = aktuell.next;
+		}
 		return false;
 	}
 
 	public boolean remove(Object o) {
-		// TODO: Implement
+		
+		ListElement vorher = null;
+		ListElement aktuell = first;
+		while(aktuell != null){// schaut ob die Liste leer ist
+			if(aktuell.payload.equals(o)){ // schaut ob o in Liste
+				if(vorher == null) { // schaut ob es das erste Element ist
+					first = aktuell.next;
+				}else {// wenn nicht dann übergib dem Vorgänger deine Zahl
+					vorher.next = aktuell.next;
+				}
+				return true;
+			}
+			vorher = aktuell; // speicher den aktuellen Wert = Vorgänger in der nächsten Runde
+			aktuell = aktuell.next; // gehe zum nächsten Element
+		}
 		return false;
-
 	}
 
 	public T set(int index, T element) {
-		// TODO: Implement
-		return element;
+		ListElement neu = new ListElement(element);
+		ListElement aktuell = first;
+		for(int i = 0; i < index; i++ ) {
+			aktuell = aktuell.next;
+		}
+		// kürzer mit getElement aufrufen lol
+		T old= aktuell.payload;
+		aktuell.payload = neu.payload;	
+		return old;
 	}
 
 	public void add(int index, T element) {
-		// TODO: Implement
+		ListElement neu = new ListElement(element);
+		if (index == 0) {
+		neu.next = first;
+		first = neu;
+		return;
+		}
+		ListElement aktuell = first;
+		for(int i = 0; i < index -1; i++) {
+			aktuell = aktuell.next;
+		}
+		neu.next = aktuell.next;
+		aktuell.next = neu;
 	}
-
+	
 
 	public T remove(int index) {
-		// TODO: Implement
-		return null;
+		if(index == 0) {
+			T value = first.payload;
+			first = first.next; 
+			return value;
+		}
+		ListElement aktuell = first; 
+		for(int i = 0; i< index -1; i++) { 
+			aktuell = aktuell.next;
+		}
+		ListElement entfernen = aktuell.next;
+		aktuell.next = entfernen.next;
+		return entfernen.payload;
 	}
 
 	public boolean isEmpty() {
