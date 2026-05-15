@@ -38,8 +38,7 @@ public class MyLinkedList<T> {
 	}
 	
 	/**
-	 * Internal method that iterates over the list, returning the last element
-	 * (i.e., the one whose next field is null)
+	 * Add the element as last element to the list
 	 * 
 	 * @return
 	 */
@@ -56,39 +55,130 @@ public class MyLinkedList<T> {
 		 return;
 	}
 	
-	
-	
-	
-	
-	
+
+	/**
+	 * Returns the number of elements in the list
+	 * 
+	 * @return
+	 */
 	public int size() {
-		// TODO: Implement
-		return 0;
+		if (first == null)
+			return 0;
+		int index = 1;
+		ListElement current = first;
+		while (current != null) {
+			index++;
+			current = current.next;
+		}
+		return index;
 	}
 
+	
+	/**
+	 * Returns true, if the list contains the element
+	 * 
+	 * @return
+	 */
 	public boolean contains(Object o) {
-		// TODO: Implement
+		if (first == null)
+			return false;
+		ListElement current = first;
+		while (current != null) {
+			if(o == current.payload)
+				return true;
+			current = current.next;
+		}
 		return false;
 	}
 
+	
+	/**
+	 * Returns true, if the list contains the element
+	 * 
+	 * @return
+	 */
 	public boolean remove(Object o) {
-		// TODO: Implement
+		if (first == null)
+			return false;
+		if(o == first.payload) {
+			first = null;
+			return true;	
+		}
+		ListElement before = first;
+		ListElement current = first.next;
+		while (current != null) {
+			if(o == current.payload) {
+				before.next = current.next;
+				return true;
+			}
+			before = current;
+			current = current.next;
+		}
 		return false;
-
 	}
 
 	public T set(int index, T element) {
-		// TODO: Implement
-		return element;
+		// Check if index is out of bounds
+        if (index < 0 || index > size()) {
+            return null;
+        }
+		int i = 1;
+		ListElement current = first;
+		while (current != null) {
+			if( i == index) {
+				current.payload = element;
+				return element;
+			}
+			i++;
+			current = current.next;
+		}
+		return null;
 	}
 
 	public void add(int index, T element) {
-		// TODO: Implement
+		// Check if index is out of bounds
+        if (index < 0 || index > size()) {
+            return;
+        }   
+		int i = 1;
+		ListElement current = first;
+		while (current != null) {
+			if( i == index) {
+				ListElement addition = new ListElement(element);
+				addition.payload = element;
+				addition.next = current.next;
+				current.next = addition;
+				return;
+			}
+			i++;
+			current = current.next;
+		}
+		return;
 	}
 
 
 	public T remove(int index) {
-		// TODO: Implement
+		// Check if index is out of bounds
+        if (index < 0 || index > size()) {
+            return null;
+        }   
+		if (index == 1) {
+			T deleted = first.payload;
+			clear();
+			return deleted;
+		}
+		ListElement before = first;
+		ListElement current = first.next;
+		int i = 1;
+		while (current != null) {
+			if( i == index) {
+				T deleted = current.payload;
+				before.next = current.next;
+				return deleted;
+			}
+			i++;
+			current = current.next;
+		}
 		return null;
 	}
 
