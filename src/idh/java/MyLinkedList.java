@@ -21,19 +21,51 @@ public class MyLinkedList<T> {
 	ListElement first;
 
 	public int size() {
-		// TODO: Implement
-		return 0;
+		int count = 0;
+		
+		ListElement current = first;
+		
+		while (current != null) {
+			count++;
+			current = current.next;
+		}
+		return count;
 	}
 
 	public boolean contains(Object o) {
-		// TODO: Implement
+		ListElement current = first;
+		
+		while (current != null) {
+			if (current.payload.equals(o)) {
+				return true;
+			}
+		
+		current = current.next;
+		}		
 		return false;
 	}
 
 	public boolean remove(Object o) {
-		// TODO: Implement
+		if (first == null) {
+			return false;
+		}
+		
+		if (first.payload.equals(o)) {
+			first = first.next;
+			return true;
+		}
+		
+		ListElement current = first;
+		
+		while (current.next != null) {
+			if (current.next.payload.equals(o)) {
+				current.next = current.next.next;
+				return true;
+			}
+			
+			current = current.next;
+		}
 		return false;
-
 	}
 
 	public T set(int index, T element) {
@@ -61,6 +93,17 @@ public class MyLinkedList<T> {
 
 	public T get(int index) {
 		return getElement(index).payload;
+	}
+	
+	public boolean add(T element) {
+		ListElement neu = new ListElement(element);
+		
+		if (first == null) {
+			first = neu;
+			return true;
+		}
+		last().next = neu;
+		return true;
 	}
 
 	/**
