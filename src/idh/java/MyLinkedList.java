@@ -139,6 +139,7 @@ public class MyLinkedList<T> {
 	 * @param index
 	 * @return
 	 */
+	//Hallo
 	private ListElement getElement(int index) {
 		if (isEmpty())
 			return null;
