@@ -20,6 +20,47 @@ public class MyLinkedList<T> {
 	 */
 	ListElement first;
 
+	/**
+	 * Internal method that iterates over the list, returning the last element
+	 * (i.e., the one whose next field is null)
+	 * 
+	 * @return
+	 */
+	private ListElement last() {
+		if (first == null)
+			return null;
+		ListElement current = first;
+
+		while (current.next != null) {
+			current = current.next;
+		}
+		return current;
+	}
+	
+	/**
+	 * Internal method that iterates over the list, returning the last element
+	 * (i.e., the one whose next field is null)
+	 * 
+	 * @return
+	 */
+	 public void addlast(T element) 
+	 {	
+		 ListElement current = new ListElement(element);
+		 
+		 if (first == null)
+		 {
+			first = current;
+		 } else {
+			 last().next = current;
+		 }	
+		 return;
+	}
+	
+	
+	
+	
+	
+	
 	public int size() {
 		// TODO: Implement
 		return 0;
@@ -61,23 +102,6 @@ public class MyLinkedList<T> {
 
 	public T get(int index) {
 		return getElement(index).payload;
-	}
-
-	/**
-	 * Internal method that iterates over the list, returning the last element
-	 * (i.e., the one whose next field is null)
-	 * 
-	 * @return
-	 */
-	private ListElement last() {
-		if (first == null)
-			return null;
-		ListElement current = first;
-
-		while (current.next != null) {
-			current = current.next;
-		}
-		return current;
 	}
 
 	/**
