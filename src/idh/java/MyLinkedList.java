@@ -26,7 +26,7 @@ public class MyLinkedList<T> {
 	 * 
 	 * @return
 	 */
-	public ListElement last() {
+	private ListElement last() {
 		if (first == null)
 			return null;
 		
@@ -41,6 +41,7 @@ public class MyLinkedList<T> {
 	/**
 	 * Add the element as last element to the list
 	 * 
+	 * @param element
 	 * @return
 	 */
 	 public void addlast(T element) 
@@ -61,7 +62,6 @@ public class MyLinkedList<T> {
 		 */
 		 
 		 ListElement newElement = new ListElement(element);
-		 newElement.payload = element;
 		 
 		 if (first == null)
 		 {
@@ -76,7 +76,7 @@ public class MyLinkedList<T> {
 	/**
 	 * Returns the number of elements in the list
 	 * 
-	 * @return
+	 * @return int
 	 */
 	public int size() {
 		if (first == null)
@@ -97,6 +97,7 @@ public class MyLinkedList<T> {
 	/**
 	 * Returns true, if the list contains the element
 	 * 
+	 * @param Object
 	 * @return
 	 */
 	public boolean contains(Object o) {
@@ -115,6 +116,7 @@ public class MyLinkedList<T> {
 	/**
 	 * Returns true, if the element has been removed from the list
 	 * 
+	 * @param Object
 	 * @return
 	 */
 	public boolean remove(Object o) {
@@ -139,7 +141,9 @@ public class MyLinkedList<T> {
 
 	/**
 	 * Replace the element at the index position in the list
+	 * The index is zero-based, meaning the first element has an index of 0.
 	 * 
+	 * @param index, element
 	 * @return
 	 */
 	public T set(int index, T element) {
@@ -162,7 +166,9 @@ public class MyLinkedList<T> {
 
 	/**
 	 * Inserts the element into the list at the specified index position
+	 * The index is zero-based, meaning the first element has an index of 0.
 	 * 
+	 * @param index, element
 	 * @return
 	 */
 	public void add(int index, T element) {
@@ -170,7 +176,7 @@ public class MyLinkedList<T> {
         if (index < 0 || index > size()) {
             return;
         }   
-		int i = 1;
+		int i = 0;
 		ListElement current = first;
 		while (current != null) {
 			if( i == index) {
@@ -188,7 +194,9 @@ public class MyLinkedList<T> {
 
 	/**
 	 * Deletes the element at the index position from the list
+	 * The index is zero-based, meaning the first element has an index of 0.
 	 * 
+	 * @param index
 	 * @return
 	 */
 	public T remove(int index) {
@@ -196,9 +204,9 @@ public class MyLinkedList<T> {
         if (index < 0 || index > size()) {
             return null;
         }   
-		if (index == 1) {
+		if (index == 0) {
 			T deleted = first.payload;
-			clear();
+			first = first.next; 
 			return deleted;
 		}
 		ListElement before = first;
@@ -236,16 +244,24 @@ public class MyLinkedList<T> {
 
 	/**
 	 * outputs the payload at the index position
+	 * The index is zero-based, meaning the first element has an index of 0.
 	 * 
+	 * @param index
 	 * @return
 	 */
 	public T get(int index) {
-		return getElement(index).payload;
+		// Check if index is out of bounds
+        if (index < 0 || index > size()) {
+            return null;
+        }   
+		ListElement current = getElement(index);
+		return current.payload;
 	}
 
 	/**
 	 * Internal method to get the list element (not the value) of the list at the
 	 * specified index position.
+	 * The index is zero-based, meaning the first element has an index of 0.
 	 * 
 	 * @param index
 	 * @return
