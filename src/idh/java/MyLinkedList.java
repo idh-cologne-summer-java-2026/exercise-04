@@ -12,7 +12,7 @@ public class MyLinkedList<T> {
 		ListElement(T value) {
 			this.payload = value;
 		}
-	}
+	}                                                                                                                      
 
 	/**
 	 * We only need to store the very first element of our list, because it will
@@ -21,34 +21,107 @@ public class MyLinkedList<T> {
 	ListElement first;
 
 	public int size() {
-		// TODO: Implement
-		return 0;
+		if(first == null) {
+			return 0;
+		}
+		int counter = 1;
+		ListElement current = first;
+		while (current.next != null) {
+			counter++;
+			current = current.next;
+		}
+		return counter;
 	}
-
+	
+	public void add(T element) {
+		
+		ListElement newElement = new ListElement(element);
+		if(first == null) {
+			first = newElement;
+			return;
+		}
+		
+		ListElement current = first;
+		while (current.next != null) {
+		current = current.next;	
+		}
+		current.next = newElement;
+	}
+	
+	
 	public boolean contains(Object o) {
-		// TODO: Implement
+		if(first == null) {
+			return false;
+		}
+		ListElement current = first;
+		
+		while (current.next != null) {
+			if(current.payload.equals(o)) {
+				return true;
+			}
+		current = current.next;
+		}
+		if(current.payload.equals(o)) {
+			return true;
+		}
 		return false;
 	}
 
 	public boolean remove(Object o) {
-		// TODO: Implement
+		ListElement current = first;
+		while (current.next != null) {
+			if(current.payload == o) {
+				current = null; 
+				return true;
+			}
+		current = current.next;
+		}
 		return false;
 
 	}
 
 	public T set(int index, T element) {
-		// TODO: Implement
+		
+		ListElement newElement = new ListElement(element);
+		ListElement current = first;
+		
+		//Check if index is bigger than List Length
+		/**if(index > MyLinkedList<T>.size()){
+			-> throw exception
+		}**/
+		
+		for(int i = 0; i < index; i++) {
+			current = current.next;
+		}
+		current = newElement;
+		
 		return element;
 	}
 
 	public void add(int index, T element) {
-		// TODO: Implement
+		
+		ListElement newElement = new ListElement(element);
+		ListElement current = first;
+		while (current != null) {
+			if (index == 0)
+			current = newElement;
+		}
+		index--;
 	}
 
 
 	public T remove(int index) {
-		// TODO: Implement
-		return null;
+		ListElement current = first;
+		while (current.next != null) {
+			
+			if (index == 0) {
+				current = null; 
+				return null;
+			}
+				index--;
+				current = current.next;
+		}
+		return (T) current;
 	}
 
 	public boolean isEmpty() {
@@ -92,8 +165,9 @@ public class MyLinkedList<T> {
 			return null;
 		ListElement current = first;
 		while (current != null) {
-			if (index == 0)
+			if (index == 0) {
 				return current;
+			}
 			index--;
 			current = current.next;
 		}
