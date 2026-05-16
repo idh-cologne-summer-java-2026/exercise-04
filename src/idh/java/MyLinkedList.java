@@ -69,18 +69,53 @@ public class MyLinkedList<T> {
 	}
 
 	public T set(int index, T element) {
-		// TODO: Implement
-		return element;
+		ListElement e = getElement(index);
+		
+		T old = e.payload;
+		e.payload = element;
+		
+		return old;
 	}
 
 	public void add(int index, T element) {
-		// TODO: Implement
+		ListElement neu = new ListElement(element);
+		
+		if (index == 0) {
+			neu.next = first; // der next-Wert wird auf null gesetzt
+			first = neu; 		// der first wert kriegt das neue element
+			return;
+		}
+		ListElement before = getElement(index-1);
+		neu.next = before.next; // unser neues Element kriegt den next wert vom element was vorher an der stelle stand
+		before.next = neu; // das vorherige element kriegt den wert vom neuen element
+		// -> kette wieder in takt
+		
 	}
 
 
+	
+	/*
+	 * Hier muss ein T wiedergegeben werden (?!)
+	 * wir schauen uns den knoten via getElement an
+	 * müssen den link vom knoten an index-1 zur stelle von knoten index.next herstellen
+	 * also zb mit einem before element?
+	 * ich glaub es sollte reichen wenn kein link mehr besteht, dann ist das element 
+	 * hinfällig und wird gelöscht
+	 */
+	
+	
 	public T remove(int index) {
-		// TODO: Implement
-		return null;
+		if (index == 0) {
+			T value = first.payload;
+			first = first.next;
+			return value;
+		}
+		
+		ListElement before = getElement(index-1);
+		ListElement removed = before.next;
+		before.next = removed.next;
+		return removed.payload;
+		
 	}
 
 	public boolean isEmpty() {
