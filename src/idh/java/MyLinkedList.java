@@ -26,9 +26,10 @@ public class MyLinkedList<T> {
 	 * 
 	 * @return
 	 */
-	private ListElement last() {
+	public ListElement last() {
 		if (first == null)
 			return null;
+		
 		ListElement current = first;
 
 		while (current.next != null) {
@@ -44,13 +45,29 @@ public class MyLinkedList<T> {
 	 */
 	 public void addlast(T element) 
 	 {	
-		 ListElement current = new ListElement(element);
+		 /** Vorlesung
+		 ListElement newElement = new ListElement(element);
+		 newElement.payload = element;
+		 if (first == null)
+		 {
+			first = newElement;
+		 } else {
+			 ListElement current = first;
+			 while (current.next != null) {
+					current = current.next;
+				}
+			 current.next = newElement;
+		 }	
+		 */
+		 
+		 ListElement newElement = new ListElement(element);
+		 newElement.payload = element;
 		 
 		 if (first == null)
 		 {
-			first = current;
+			first = newElement;
 		 } else {
-			 last().next = current;
+			 last().next = newElement;
 		 }	
 		 return;
 	}
@@ -64,12 +81,15 @@ public class MyLinkedList<T> {
 	public int size() {
 		if (first == null)
 			return 0;
-		int index = 1;
+		
+		int index = 0;
 		ListElement current = first;
+		
 		while (current != null) {
 			index++;
 			current = current.next;
 		}
+		
 		return index;
 	}
 
@@ -93,7 +113,7 @@ public class MyLinkedList<T> {
 
 	
 	/**
-	 * Returns true, if the list contains the element
+	 * Returns true, if the element has been removed from the list
 	 * 
 	 * @return
 	 */
@@ -117,6 +137,11 @@ public class MyLinkedList<T> {
 		return false;
 	}
 
+	/**
+	 * Replace the element at the index position in the list
+	 * 
+	 * @return
+	 */
 	public T set(int index, T element) {
 		// Check if index is out of bounds
         if (index < 0 || index > size()) {
@@ -135,6 +160,11 @@ public class MyLinkedList<T> {
 		return null;
 	}
 
+	/**
+	 * Inserts the element into the list at the specified index position
+	 * 
+	 * @return
+	 */
 	public void add(int index, T element) {
 		// Check if index is out of bounds
         if (index < 0 || index > size()) {
@@ -156,7 +186,11 @@ public class MyLinkedList<T> {
 		return;
 	}
 
-
+	/**
+	 * Deletes the element at the index position from the list
+	 * 
+	 * @return
+	 */
 	public T remove(int index) {
 		// Check if index is out of bounds
         if (index < 0 || index > size()) {
@@ -182,14 +216,29 @@ public class MyLinkedList<T> {
 		return null;
 	}
 
+	/**
+	 * Checks if the list is empty
+	 * 
+	 * @return
+	 */
 	public boolean isEmpty() {
 		return first == null;
 	}
 
+	/**
+	 * Deletes the list
+	 * 
+	 * @return
+	 */
 	public void clear() {
 		first = null;
 	}
 
+	/**
+	 * outputs the payload at the index position
+	 * 
+	 * @return
+	 */
 	public T get(int index) {
 		return getElement(index).payload;
 	}
