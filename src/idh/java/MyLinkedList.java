@@ -21,33 +21,92 @@ public class MyLinkedList<T> {
 	ListElement first;
 
 	public int size() {
-		// TODO: Implement
-		return 0;
+		ListElement current = first; 
+		int counter = 0; 
+		if(current == null) {return 0;}
+		while(current.next != null) {
+			counter++; 
+			current = current.next; 
+		}
+		return counter-1; 
 	}
 
 	public boolean contains(Object o) {
-		// TODO: Implement
+		ListElement current = first; 
+		while (current.next != null) { 
+			if (current.payload == o) {
+				return true; 
+			}
+			current = current.next;
+		}
 		return false;
 	}
 
 	public boolean remove(Object o) {
-		// TODO: Implement
-		return false;
+		ListElement current = first; 
+		if(this.contains(o)) {
+			ListElement before = new ListElement(null); 
+			int counter = 0; 
+			while (current.payload != o ) {
+				current = current.next; 
+				counter++; 
+			}
+			current = first; 
+			for (int i = 0; i < counter; i++) {
+				current = current.next;  
+			
+			}
+			current.next = current.next.next; 
+			return true; 
+			
+		}
+		else {
+		return false;}
 
 	}
 
 	public T set(int index, T element) {
-		// TODO: Implement
+	ListElement current = first; 
+	for (int i = 0; i < index; i++) {
+		if(current.next == null) {
+			ListElement newElement = new ListElement(element); 
+			current.next = newElement; 
+			System.out.println("Die Liste hatte noch nicht" + index + "Einträge. Dein Eintrag wurde stattdessen an der Stelle" + (i+1) + "hinzugefügt");
+			return element; 
+			}
+		current = current.next; 
+		
+		
+	}
+	current.payload = element; 
 		return element;
 	}
 
-	public void add(int index, T element) {
+	public boolean add(int index, T element) {
 		// TODO: Implement
+		//Added einen neuen Listeninput. Dazu müssen wir die Elemente mit einer For SChleife bis dahin durchgeheh, die next Variable dieses Elements auf unser Element setzen, und die next variable von usnerem Element auf das Element danach setzen 
+		ListElement current = first; 
+		for(int i = 0; i < index; i++) {
+			current = current.next;  
+		}
+//		ListElement nextElement = current.next; //Speichert die Adresse des nächsten Punkts
+		ListElement newElement = new ListElement(element); 
+		newElement.next = current.next; //Setzt das feld next unseres neuen Elements auf das Element, danach, das wir gespeichert haben 
+		current.next = newElement; //Setzt die Adresse des nächsten Punkts auf unser neues element 
+		return true;
 	}
 
 
 	public T remove(int index) {
-		// TODO: Implement
+		ListElement current = first; 
+		for(int i = 0; i < index-1; i++) {
+			if(current.next == null) {
+				
+				System.out.println("Die Liste hatte noch nicht" + index + "Einträge. Es wurde kein Eintrag gelöscht");
+				return null; }
+			current = current.next;  
+		}
+		
 		return null;
 	}
 
