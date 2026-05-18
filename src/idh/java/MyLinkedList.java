@@ -123,7 +123,7 @@ public class MyLinkedList<T> {
 		if (first == null)
 			return false;
 		if(o == first.payload) {
-			first = null;
+			first = first.next;
 			return true;	
 		}
 		ListElement before = first;
@@ -151,7 +151,7 @@ public class MyLinkedList<T> {
         if (index < 0 || index > size()) {
             return null;
         }
-		int i = 1;
+		int i = 0;
 		ListElement current = first;
 		while (current != null) {
 			if( i == index) {
@@ -176,18 +176,28 @@ public class MyLinkedList<T> {
         if (index < 0 || index > size()) {
             return;
         }   
-		int i = 0;
+		ListElement addition = new ListElement(element);
+		addition.payload = element;
+		
 		ListElement current = first;
-		while (current != null) {
-			if( i == index) {
-				ListElement addition = new ListElement(element);
-				addition.payload = element;
-				addition.next = current.next;
-				current.next = addition;
-				return;
+        if (index == 0) {
+			first = addition;
+			addition.next = current;
+			return;
+		} else {
+			ListElement before = first;
+			current = first.next;
+			int i = 1;
+			while (current != null) {
+				if( i == index) {
+					before.next = addition;
+					addition.next = current;
+					return;
+				}
+				i++;
+				before =current;
+				current = current.next;
 			}
-			i++;
-			current = current.next;
 		}
 		return;
 	}
