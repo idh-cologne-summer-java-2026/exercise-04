@@ -21,34 +21,110 @@ public class MyLinkedList<T> {
 	ListElement first;
 
 	public int size() {
-		// TODO: Implement
-		return 0;
+		int counter = 0;
+		ListElement current = first;
+
+		while (current != null) {
+			counter++;
+			current = current.next;
+		}
+
+		return counter;
 	}
 
 	public boolean contains(Object o) {
-		// TODO: Implement
+		ListElement current = first;
+
+		while (current != null) {
+			if (equalsPayload(current.payload, o)) {
+				return true;
+			}
+			current = current.next;
+		}
 		return false;
 	}
 
 	public boolean remove(Object o) {
-		// TODO: Implement
+		if (first == null) {
+			return false;
+		}
+
+		if (equalsPayload(first.payload, o)) {
+			first = first.next;
+			return true;
+		}
+
+		ListElement previous = first;
+		ListElement current = first.next;
+
+		while (current != null) {
+			if (equalsPayload(current.payload, o)) {
+				previous.next = current.next;
+				return true;
+			}
+
+			previous = current;
+			current = current.next;
+		}
 		return false;
 
 	}
 
 	public T set(int index, T element) {
-		// TODO: Implement
-		return element;
+		ListElement current = getElement(index);
+		T oldPayload = current.payload;
+		current.payload = element;
+		return oldPayload;
+	}
+	
+	public boolean add(T element) {
+		ListElement newElement = new ListElement(element);
+
+		if (first == null) {
+			first = newElement;
+		} else {
+			last().next = newElement;
+		}
+
+		return true;
 	}
 
 	public void add(int index, T element) {
-		// TODO: Implement
+		if (index < 0 || index > size()) {
+			throw new IndexOutOfBoundsException();
+		}
+
+		ListElement newElement = new ListElement(element);
+
+		if (index == 0) {
+			newElement.next = first;
+			first = newElement;
+			return;
+		}
+
+		ListElement previous = getElement(index - 1);
+		newElement.next = previous.next;
+		previous.next = newElement;
 	}
 
 
 	public T remove(int index) {
-		// TODO: Implement
-		return null;
+		if (index < 0 || index >= size()) {
+			throw new IndexOutOfBoundsException();
+		}
+
+		if (index == 0) {
+			T oldPayload = first.payload;
+			first = first.next;
+			return oldPayload;
+		}
+
+		ListElement previous = getElement(index - 1);
+		ListElement removed = previous.next;
+
+		previous.next = removed.next;
+
+		return removed.payload;
 	}
 
 	public boolean isEmpty() {
@@ -98,6 +174,13 @@ public class MyLinkedList<T> {
 			current = current.next;
 		}
 		return null;
+	}
+	
+	private boolean equalsPayload(Object a, Object b) {
+		if (a == null) {
+			return b == null;
+		}
+		return a.equals(b);
 	}
 
 }
