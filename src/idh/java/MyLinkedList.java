@@ -2,6 +2,7 @@ package idh.java;
 
 public class MyLinkedList<T> {
 
+	// black-cat-ninja branch
 	/**
 	 * Helper class for the list elements
 	 */
