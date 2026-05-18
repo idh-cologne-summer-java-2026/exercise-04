@@ -19,21 +19,38 @@ public class MyLinkedList<T> {
 	 * know whether there is a next element.
 	 */
 	ListElement first;
+	private int size = 0;
 
 	public int size() {
-		// TODO: Implement
-		return 0;
+		return this.size;
 	}
 
 	public boolean contains(Object o) {
-		// TODO: Implement
+		ListElement current = first;
+		
+		while (current != null) {
+			if (o.equals(current.payload)) {
+				return true;
+			} current = current.next;
+		}
+		
 		return false;
 	}
 
 	public boolean remove(Object o) {
-		// TODO: Implement
-		return false;
-
+		ListElement current = first;
+		
+		while (current.next != null) {
+			if (first == null) {
+				return false;
+			} else if (o.equals(current.next.payload)) {
+				current.next = current.next.next;
+				// Element current.next wird praktisch übersprungen  
+				size--;
+				return true; 
+			}
+		} return false; 
+		
 	}
 
 	public T set(int index, T element) {
@@ -42,13 +59,26 @@ public class MyLinkedList<T> {
 	}
 
 	public void add(int index, T element) {
-		// TODO: Implement
+		ListElement newElement = new ListElement(element);
+		
+		if (first == null) {
+			first = newElement;
+		} else {
+			ListElement current = first;
+			int currentPosition = 0;
+			while (currentPosition < index - 1 && current.next != null) {
+				current = current.next;
+				currentPosition++;
+			} 
+			newElement.next = current.next;
+			current.next = newElement;
+		} this.size++; 
+
 	}
 
 
 	public T remove(int index) {
-		// TODO: Implement
-		return null;
+
 	}
 
 	public boolean isEmpty() {
