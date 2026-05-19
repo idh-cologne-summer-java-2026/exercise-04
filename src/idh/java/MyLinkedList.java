@@ -48,7 +48,6 @@ public class MyLinkedList<T> {
 			return true;
 		}
 
-
 		//Element aus Mitte entfernen
 		ListElement current = first;
 		while(current.next != null) { 
@@ -86,8 +85,15 @@ public class MyLinkedList<T> {
 
 
 	public T remove(int index) {
-		// TODO: Implement
-		return null;
+		ListElement node = getElement(index);
+		T oldValue = node.payload;
+		if (index == 0){
+			first = first.next;
+		} else{
+			ListElement previous = getElement(index-1);
+			previous.next = node.next;}
+			
+		return oldValue;
 	}
 
 	public boolean isEmpty() {
