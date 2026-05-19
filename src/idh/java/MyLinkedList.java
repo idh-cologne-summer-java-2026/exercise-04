@@ -2,9 +2,7 @@ package idh.java;
 
 public class MyLinkedList<T> {
 
-	/**
-	 * Helper class for the list elements
-	 */
+
 	private class ListElement {
 		T payload;
 		ListElement next = null;
@@ -14,41 +12,91 @@ public class MyLinkedList<T> {
 		}
 	}
 
-	/**
-	 * We only need to store the very first element of our list, because it will
-	 * know whether there is a next element.
-	 */
+	
 	ListElement first;
 
 	public int size() {
-		// TODO: Implement
-		return 0;
+		int count = 0;
+		ListElement current = first;
+		while (current != null) {
+			count++;
+			current = current.next;
+		}
+		return count;
 	}
 
 	public boolean contains(Object o) {
-		// TODO: Implement
+		ListElement current = first;
+		while (current != null) {
+			if (o == null ? current.payload == null : o.equals(current.payload)) {
+				return true;
+			}
+			current = current.next;
+		}
 		return false;
 	}
 
 	public boolean remove(Object o) {
-		// TODO: Implement
-		return false;
+		if (isEmpty()) return false;
+		
 
+		if (o == null ? first.payload == null : o.equals(first.payload)) {
+			first = first.next;
+			return true;
+		}
+		
+		
+		ListElement current = first;
+		while (current.next != null) {
+			if (o == null ? current.next.payload == null : o.equals(current.next.payload)) {
+				current.next = current.next.next;
+				return true;
+			}
+			current = current.next;
+		}
+		return false;
 	}
 
 	public T set(int index, T element) {
-		// TODO: Implement
-		return element;
+		ListElement targetNode = getElement(index);
+		if (targetNode == null) return null;
+		
+		T oldValue = targetNode.payload;
+		targetNode.payload = element;
+		return oldValue;
 	}
 
 	public void add(int index, T element) {
-		// TODO: Implement
+		ListElement newElement = new ListElement(element);
+		
+		if (index == 0) {
+			newElement.next = first;
+			first = newElement;
+		} else {
+
+			ListElement prevElement = getElement(index - 1);
+			if (prevElement != null) {
+				newElement.next = prevElement.next;
+				prevElement.next = newElement;
+			}
+		}
 	}
 
-
 	public T remove(int index) {
-		// TODO: Implement
-		return null;
+		if (isEmpty()) return null;
+		
+		if (index == 0) {
+			T removedValue = first.payload;
+			first = first.next;
+			return removedValue;
+		}
+		
+		ListElement prevElement = getElement(index - 1);
+		if (prevElement == null || prevElement.next == null) return null;
+		
+		T removedValue = prevElement.next.payload;
+		prevElement.next = prevElement.next.next;
+		return removedValue;
 	}
 
 	public boolean isEmpty() {
@@ -63,30 +111,7 @@ public class MyLinkedList<T> {
 		return getElement(index).payload;
 	}
 
-	/**
-	 * Internal method that iterates over the list, returning the last element
-	 * (i.e., the one whose next field is null)
-	 * 
-	 * @return
-	 */
-	private ListElement last() {
-		if (first == null)
-			return null;
-		ListElement current = first;
-
-		while (current.next != null) {
-			current = current.next;
-		}
-		return current;
-	}
-
-	/**
-	 * Internal method to get the list element (not the value) of the list at the
-	 * specified index position.
-	 * 
-	 * @param index
-	 * @return
-	 */
+	//
 	private ListElement getElement(int index) {
 		if (isEmpty())
 			return null;
@@ -99,5 +124,4 @@ public class MyLinkedList<T> {
 		}
 		return null;
 	}
-
 }
