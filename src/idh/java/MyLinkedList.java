@@ -20,45 +20,108 @@ public class MyLinkedList<T> {
 	 */
 	ListElement first;
 
+	/* Returns the number of elements in this list.*/
 	public int size() {
-		// TODO: Implement
-		return 0;
+		int count = 0;
+		ListElement current = first;
+		while (current != null) {
+			count ++;
+			current = current.next;
+		}
+		return count;
 	}
-
+	
+	/* Returns true if this list contains the specified element */
 	public boolean contains(Object o) {
-		// TODO: Implement
+		ListElement current = first;
+		while (current != null) {
+			if (current.payload == o) {
+				return true;
+			}
+			current = current.next;
+		}
 		return false;
 	}
-
+	
+	
+	/* Removes the first occurrence of the specified element from this list, if it is present */
 	public boolean remove(Object o) {
-		// TODO: Implement
+		
+		// Erstes Element entfernen
+		if (o.equals(first.payload)) {
+			first = first.next;
+			return true;
+		}
+
+		// Element in Mitte/Ende entfernen
+		ListElement current = first;
+		while (current.next != null) {
+			if (o.equals(current.next.payload)) {
+				current.next = current.next.next;
+				return true;
+			}
+		}
 		return false;
 
 	}
-
+	
+	/*Replaces the element at the specified position in this list with the specified element.*/
 	public T set(int index, T element) {
-		// TODO: Implement
-		return element;
+		ListElement node = getElement(index);
+		T oldValue = node.payload;
+		node.payload = element;
+		return oldValue;
 	}
-
+	
+	/*Inserts the specified element at the specified position in this list.*/
 	public void add(int index, T element) {
-		// TODO: Implement
-	}
+		ListElement newElement = new ListElement(element);
+		
+		if (index == 0) {
+			newElement.next = first;
+			first = newElement;
+		} else {
+		ListElement previous = getElement(index-1);
+		if (previous != null) {
+			newElement.next = previous.next;
+			previous.next = newElement;
+		}
+		}
+	} 
 
-
+	/* Removes the element at the specified position in this list*/
 	public T remove(int index) {
-		// TODO: Implement
+
+		if (index == 0) {
+			ListElement previous = first;
+			first = first.next;
+			return previous.payload;
+		}
+			
+		int count = 0;
+		ListElement current = first;
+		while (current.next != null) {
+			count++;
+			current = current.next;
+			 if (count == index) { 
+				ListElement previous = current;
+				current.next = current.next.next;
+				return previous.payload; 
+			}
+		}
 		return null;
 	}
-
+	
 	public boolean isEmpty() {
 		return first == null;
 	}
-
+	
+	/*Removes all of the elements from this list.*/
 	public void clear() {
 		first = null;
 	}
-
+	
+	/*Returns the element at the specified position in this list.*/
 	public T get(int index) {
 		return getElement(index).payload;
 	}
