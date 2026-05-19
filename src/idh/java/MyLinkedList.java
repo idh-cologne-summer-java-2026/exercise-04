@@ -1,5 +1,7 @@
 package idh.java;
 
+import java.util.List;
+
 public class MyLinkedList<T> {
 
 	/**
@@ -21,34 +23,91 @@ public class MyLinkedList<T> {
 	ListElement first;
 
 	public int size() {
-		// TODO: Implement
-		return 0;
+		int count = 0;
+		ListElement pointer = first;
+		
+		while(pointer != null) {
+			count++;
+			pointer = pointer.next;
+		}
+		return count;
 	}
 
 	public boolean contains(Object o) {
-		// TODO: Implement
+		ListElement pointer = first;
+		
+		while (pointer != null) {
+			if(pointer.payload == o) {
+				return true;
+			}
+			pointer = pointer.next;
+		}
 		return false;
 	}
 
 	public boolean remove(Object o) {
-		// TODO: Implement
+		
+		if(o.equals(first.payload)) {
+			first = first.next;
+			return true;
+		}
+		
+		ListElement pointer = first;
+		
+		while(pointer.next != null) {
+			if(o.equals(pointer.next.payload)) {
+				pointer.next = pointer.next.next;
+				return true;
+			}
+			pointer = pointer.next;
+		}
 		return false;
 
 	}
 
 	public T set(int index, T element) {
-		// TODO: Implement
-		return element;
+		
+		ListElement node = getElement(index);
+		T oldValue = node.payload;
+		node.payload = element;
+		return oldValue;
 	}
-
+	
 	public void add(int index, T element) {
-		// TODO: Implement
+		ListElement newElement = new ListElement(element);
+		
+		if(index == 0) {
+			newElement.next = first;
+			first = newElement;
+		} else {
+			ListElement previous = getElement(index-1);
+		
+		if(previous != null) {
+			newElement.next = previous.next;
+			previous.next = newElement;
+			}
+		}
 	}
 
 
 	public T remove(int index) {
-		// TODO: Implement
-		return null;
+		
+		if(index == 0) {
+			T oldIndex = first.payload;
+			first = first.next;
+			return oldIndex;
+		} else {
+			ListElement previous = getElement(index-1);
+			if(previous == null) {
+				return null;
+			}
+			if(previous.next == null) {
+				return null;
+			}
+			ListElement removed = previous.next;
+			previous.next = removed.next;
+			return removed.payload;
+		}
 	}
 
 	public boolean isEmpty() {
