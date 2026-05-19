@@ -22,33 +22,81 @@ public class MyLinkedList<T> {
 
 	public int size() {
 		// TODO: Implement
-		return 0;
+		int count = 0; 
+		ListElement current = first; 
+		while(current.next!=null) {
+			current = current.next; 
+			count++; 
+		}
+		return count; 
 	}
 
 	public boolean contains(Object o) {
-		// TODO: Implement
-		return false;
+		ListElement current = first; 
+		while(current.next !=null) {
+			if(current.payload == o) {
+				return true; 
+			}
+			current = current.next; 
+		}
+		return false; 
 	}
 
 	public boolean remove(Object o) {
-		// TODO: Implement
-		return false;
-
+		// remove first element 
+		if(o.equals(first.payload)) {
+			first = first.next; 
+			return true; 
+		}
+		ListElement current = first; 
+		while(current.next !=null) {
+		  if(o.equals(current.next.payload)) {
+			current.next = current.next.next; 
+			return true; 
+		  }
+		}
+        return false; 
 	}
 
 	public T set(int index, T element) {
-		// TODO: Implement
-		return element;
+		ListElement current = first; 
+	    for(int i=0; i<index; i++) {
+	      if(current.next==null) {
+	    	  ListElement newE = new ListElement(element); 
+	    	  current.next = newE; 
+	    	  return element; 
+	      }
+	      current = current.next; 
+	    }
+	    current.payload = element; 
+	    return element; 
+		
 	}
 
 	public void add(int index, T element) {
 		// TODO: Implement
+		ListElement newE = new ListElement(element); 
+		if(index ==0) {
+			newE.next = first; 
+			first = newE; 
+		} else {
+			ListElement current = first; 
+			for(int i=0; i<index;i++) {
+				current = current.next; 
+			}
+			newE.next = current.next; 
+			current.next = newE; 
+		}
 	}
 
 
 	public T remove(int index) {
-		// TODO: Implement
-		return null;
+	  if(index ==0) {
+		  first = first.next; 
+	  }
+	  ListElement previous = getElement(index-1); 
+	  previous.next = previous.next.next; 
+	  return null; 
 	}
 
 	public boolean isEmpty() {
