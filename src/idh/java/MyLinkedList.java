@@ -21,8 +21,17 @@ public class MyLinkedList<T> {
 	ListElement first;
 
 	public int size() {
-		// TODO: Implement
-		return 0;
+
+	    int count = 0;
+
+	    ListElement current = first;
+
+	    while (current != null) {
+	        count++;
+	        current = current.next;
+	    }
+
+	    return count;
 	}
 
 	public boolean contains(Object o) {
