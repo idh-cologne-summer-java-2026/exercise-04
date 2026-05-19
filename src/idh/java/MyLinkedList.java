@@ -104,10 +104,20 @@ public class MyLinkedList<T> {
 	}
 
 
-	public T remove(int index) {
-		// TODO: Implement
-		return null;
-	}
+	//public T remove(int index) {
+	
+		//if(isEmpty()) return null;
+		
+	//	if (index ==0) {
+			
+	//	T removedValue = first.payload;
+	//	first = first.next;
+		
+	//	}
+		
+		
+		
+	//}
 
 	public boolean isEmpty() {
 		return first == null;
