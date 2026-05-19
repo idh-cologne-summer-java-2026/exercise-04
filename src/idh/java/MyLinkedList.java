@@ -21,13 +21,27 @@ public class MyLinkedList<T> {
 	ListElement first;
 
 	public int size() {
-		// TODO: Implement
-		return 0;
+		int size = 1;
+		ListElement current = first;
+		while(current.next != null) {
+			size++;
+			current = current.next;
+		}
+		return size;
 	}
 
 	public boolean contains(Object o) {
-		// TODO: Implement
-		return false;
+		ListElement current = first;
+		do{
+			if(current.payload == o) {
+				return true;
+				}
+			else {
+				current = current.next;
+				return false;
+			}
+		}
+		while(current.next != null);
 	}
 
 	public boolean remove(Object o) {
@@ -37,12 +51,41 @@ public class MyLinkedList<T> {
 	}
 
 	public T set(int index, T element) {
-		// TODO: Implement
+		ListElement current = first;
+		do{
+			if(index == 0) {
+				current.payload = element;
+				break;
+			}
+			else {
+				current = current.next;
+				index--;
+			}
+		}
+		while(current.next != null);
 		return element;
 	}
 
 	public void add(int index, T element) {
-		// TODO: Implement
+		ListElement current = first;
+		ListElement neues;
+		do{
+			if(index == 1) {
+				neues = (ListElement) new Object();
+				neues.next = current.next;
+				current = neues;
+				index--;
+			}
+			else {
+				current = current.next;
+				index--;
+			}
+			if(index == 0) {
+				current.payload = element;
+				break;
+			}
+		}
+		while(current.next != null);
 	}
 
 
