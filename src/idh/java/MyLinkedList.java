@@ -5,7 +5,7 @@ public class MyLinkedList<T> {
 	/**
 	 * Helper class for the list elements
 	 */
-	private class ListElement {
+	public class ListElement {
 		T payload;
 		ListElement next = null;
 
@@ -45,9 +45,16 @@ public class MyLinkedList<T> {
 	}
 
 	public boolean remove(Object o) {
-		// TODO: Implement
+		ListElement current = first;
+		do {
+			if(current.payload == o) {
+				current.payload = null;
+				return true;
+			}
+			current = current.next;
+		}
+		while(current.next != null);
 		return false;
-
 	}
 
 	public T set(int index, T element) {
@@ -67,30 +74,36 @@ public class MyLinkedList<T> {
 	}
 
 	public void add(int index, T element) {
-		ListElement current = first;
-		ListElement neues;
-		do{
-			if(index == 1) {
-				neues = (ListElement) new Object();
-				neues.next = current.next;
-				current = neues;
-				index--;
-			}
-			else {
-				current = current.next;
-				index--;
-			}
-			if(index == 0) {
-				current.payload = element;
-				break;
-			}
-		}
-		while(current.next != null);
-	}
+		ListElement neues = new ListElement(element);
+
+	    if (index == 0) {
+	        neues.next = first;   
+	        first = neues;
+	        return;
+	        }
+
+	    ListElement current = first;
+	    for (int i = 0; i < index - 1; i++) {
+	    	current = current.next;
+	    	}
+
+	    neues.next = current.next;
+	    current.next = neues;
+	  }
+
 
 
 	public T remove(int index) {
-		// TODO: Implement
+		ListElement current = first;
+		do{
+			if(index == 1) {
+				current.next.payload = null;
+				current.next = current.next.next;
+				break;
+			}
+			index--;				
+			}
+		while(index < 0);
 		return null;
 	}
 
