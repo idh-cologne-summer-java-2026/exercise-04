@@ -5,7 +5,7 @@ public class MyLinkedList<T> {
 	/**
 	 * Helper class for the list elements
 	 */
-	private class ListElement {
+	public class ListElement {
 		T payload;
 		ListElement next = null;
 
@@ -21,33 +21,91 @@ public class MyLinkedList<T> {
 	ListElement first;
 
 	public int size() {
-		// TODO: Implement
-		return 0;
+		int count =0;
+		ListElement current = first;
+		while (current!= null) {
+			count++;
+			current = current.next;
+		}
+		return count;
 	}
 
 	public boolean contains(Object o) {
-		// TODO: Implement
+		ListElement current = first;
+		while(current!= null) {
+			if(current.payload == o) {
+				return true;
+			}
+		current = current.next;
+		}
+		
 		return false;
 	}
 
 	public boolean remove(Object o) {
-		// TODO: Implement
+		// Erstes Element entfernt
+		if(o.equals(first.payload)) {
+			first = first.next;
+			return true;
+		}
+		// Element aus der Mitte entfernt
+		ListElement current = first;
+		while(current!=null) {
+			if (o.equals(current.next.payload)) {
+				current.next = current.next.next;
+				return true;
+			}
+			current = current.next;
+		}
+	
 		return false;
 
 	}
 
 	public T set(int index, T element) {
 		// TODO: Implement
-		return element;
+		ListElement node = getElement(index);
+		T oldValue = node.payload;
+		node.payload = element;
+		return oldValue;
 	}
 
 	public void add(int index, T element) {
-		// TODO: Implement
+		ListElement newElement = new  ListElement(element);
+		// Neues Element an erster Stelle
+		if (index==0) {
+			newElement.next = first;
+			first= newElement;
+		}
+		else {
+		ListElement previous = getElement(index -1);
+		if(previous != null) {
+			newElement.next = previous.next;
+			previous.next = newElement;
+		}
+		}
 	}
 
 
 	public T remove(int index) {
-		// TODO: Implement
+		// Erstes Element entfernen
+		if (index == 0) {
+			first = null;
+			first.next= first;
+		} 
+		
+		// Element in der Mitte entfernen
+			else {
+				ListElement removeable = getElement(index);
+				ListElement previous_removeable = getElement(index-1);
+				previous_removeable.next= removeable.next;
+				removeable = null;
+				
+		
+		}
+		
+		
+		
 		return null;
 	}
 
