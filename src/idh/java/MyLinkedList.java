@@ -2,6 +2,10 @@ package idh.java;
 
 public class MyLinkedList<T> {
 
+	public static void main(String[] args) {
+		
+	}
+	
 	/**
 	 * Helper class for the list elements
 	 */
@@ -27,6 +31,7 @@ public class MyLinkedList<T> {
 
 	public boolean contains(Object o) {
 		// TODO: Implement
+		
 		return false;
 	}
 
